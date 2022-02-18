@@ -1,4 +1,4 @@
-export const API_KEY = process.env.APP_API;
+export const API_KEY = process.env.NEXT_PUBLIC_API;
 
 export const BASE_URL = 'https://api.themoviedb.org/';
 

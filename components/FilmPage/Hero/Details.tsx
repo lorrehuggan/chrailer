@@ -1,19 +1,18 @@
 import React from 'react';
-import { IMovie } from '../../../types/interface';
+import { IMoviePage } from '../../../types/interface';
 import Image from 'next/image';
 import { IMAGE_PATH } from '../../../lib/API';
-import Link from 'next/link';
 
-interface Props extends Data {
+interface Props {
+  data: IMoviePage;
+}
+
+interface IPlay extends Props {
   setPlay: React.Dispatch<React.SetStateAction<boolean>>;
   play: boolean;
 }
 
-interface Data {
-  data: IMovie;
-}
-
-const Details: React.FC<Props> = ({ data, setPlay, play }) => {
+const Details: React.FC<IPlay> = ({ data, play, setPlay }) => {
   return (
     <div className="z-10 absolute inset-0 w-full h-full p-3 sm:p-6">
       <div className="w-full h-full relative">
@@ -27,7 +26,7 @@ const Details: React.FC<Props> = ({ data, setPlay, play }) => {
 
 export default Details;
 
-const Title: React.FC<Data> = ({ data }) => {
+const Title: React.FC<Props> = ({ data }) => {
   return (
     <h1 className="text-3xl sm:text-5xl lg:text-7xl text-gray-50 font-black ">
       {data?.title || data?.original_title}
@@ -35,11 +34,10 @@ const Title: React.FC<Data> = ({ data }) => {
   );
 };
 
-const Info: React.FC<Props> = ({ data, play, setPlay }) => {
+const Info: React.FC<IPlay> = ({ data, play, setPlay }) => {
   const handlePlay = () => {
     setPlay(!play);
   };
-
   return (
     <div className="absolute bottom-0 left-0">
       <h3 className="text-2xl text-gray-50 font-bold">{`Rated ${
@@ -48,22 +46,17 @@ const Info: React.FC<Props> = ({ data, play, setPlay }) => {
       <p className="w-full text-gray-50 text-xs sm:w-2/3 md:text-sm xl:text-base">
         {data?.overview}
       </p>
-      <Link href={`/film/${data.id}`} passHref>
-        <button className="mt-3 mr-2 cursor-pointer bg-blue-400 hover:bg-lime-500 p-1 sm:p-2 rounded-md font-black transition-colors duration-200 ease-in-out">
-          More...
-        </button>
-      </Link>
       <button
         onClick={handlePlay}
-        className="mt-3 mr-2 cursor-pointer bg-blue-400 hover:bg-lime-500 p-1 sm:p-2 rounded-md font-black transition-colors duration-200 ease-in-out"
+        className="mt-3 cursor-pointer bg-blue-400 hover:bg-lime-500 p-1 sm:p-2 rounded-md font-black transition-colors duration-200 ease-in-out"
       >
-        {play ? 'Stop..' : 'Play...'}
+        {play ? 'stop...' : 'play...'}
       </button>
     </div>
   );
 };
 
-const Poster: React.FC<Data> = ({ data }) => {
+const Poster: React.FC<Props> = ({ data }) => {
   return (
     <div className="hidden sm:absolute sm:flex right-0 bottom-0 w-16 sm:w-20 sm:h-32 md:w-28 md:h-40 bg-gray-900 shadow-lg rounded-sm">
       <Image

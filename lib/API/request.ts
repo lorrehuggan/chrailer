@@ -16,3 +16,7 @@ export const FETCH_CATEGORIES = (id: string, page: number) => {
 export const FETCH_GENRE = () => {
   return BASE_URL + `3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
 };
+
+export const FETCH_BY_ID = (id: string | string[] | undefined) => {
+  return BASE_URL + `3/movie/${id}?api_key=${API_KEY}&language=en-US`;
+};

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { IMovie } from '../../../types/interface';
-import Card from '../../Card';
+import { FETCH_CATEGORIES } from '../../lib/API/request';
+import { IMovie } from '../../types/interface';
+import Card from '../Card';
 
 type Props = {
   genreID: string;
@@ -14,16 +15,12 @@ type ICategory = {
   total_results: number;
 };
 
-const API = process.env.NEXT_PUBLIC_API;
-
 const Cards: React.FC<Props> = ({ genreID, name }) => {
   const [data, setData] = useState<ICategory | null>(null);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${API}&language=en-US&include_adult=false&page=1&with_genres=${genreID}`
-      );
+      const res = await fetch(FETCH_CATEGORIES(genreID, 1));
       const json = await res.json();
       setData(json);
       return json;
@@ -52,9 +49,10 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
         </svg>
       </div>
       <div className="flex overflow-x-auto snap-x space-x-2">
-        {results?.map((data: IMovie) => {
-          return <Card key={data.id} data={data} />;
-        })}
+        {results &&
+          results?.map((data: IMovie) => {
+            return <Card key={data.id} data={data} />;
+          })}
       </div>
     </section>
   );

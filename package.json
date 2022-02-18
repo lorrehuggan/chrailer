@@ -8,10 +8,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "movie-trailer": "^2.1.0",
     "next": "12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
+    "react-youtube": "^7.14.0",
     "swr": "^1.2.1"
   },
   "devDependencies": {

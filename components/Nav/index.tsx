@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 type Props = {};
 
@@ -6,7 +7,9 @@ const Nav = (props: Props) => {
   return (
     <nav className="h-20 w-full flex flex-row justify-center">
       <div className="w-4/5 xl:w-2/3 flex flex-row items-center justify-between">
-        <h2 className="text-3xl font-black">Mulas</h2>
+        <Link href={`/`} passHref>
+          <h2 className="text-3xl font-black cursor-pointer">Mulas</h2>
+        </Link>
         <ul className=" hidden sm:flex flex-row items-center text-xs">
           <li className="uppercase">Contact</li>
           <li className="ml-2 uppercase">Movies</li>
