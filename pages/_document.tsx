@@ -14,7 +14,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html data-theme="cupcake">
+      <Html>
         <Head />
         <link rel="icon" href="/favicon.ico" />
         <body>

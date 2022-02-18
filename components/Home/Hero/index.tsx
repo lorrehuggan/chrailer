@@ -12,7 +12,7 @@ const Hero: React.FC<Props> = ({ data }) => {
   return (
     <section
       className="relative h-96 w-4/5 mx-auto overflow-hidden rounded-lg 
-    bg-gray-800 xl:w-2/3 xl:h-[30rem] "
+    bg-gray-800 xl:w-2/3 xl:h-[30rem] shadow-2xl"
     >
       <Image
         src={IMAGE_PATH + data?.backdrop_path}
@@ -30,4 +30,3 @@ const Hero: React.FC<Props> = ({ data }) => {
 };
 
 export default Hero;
-//bg-gradient-to-r from-blue-gray-900 to-transparent
