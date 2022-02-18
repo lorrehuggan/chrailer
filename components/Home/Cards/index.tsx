@@ -39,7 +39,7 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
         <h3 className="  uppercase text-2xl text-gray-700">{name}</h3>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 cursor-pointer"
+          className="h-8 w-8 cursor-pointer"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
