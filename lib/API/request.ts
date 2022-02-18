@@ -20,3 +20,10 @@ export const FETCH_GENRE = () => {
 export const FETCH_BY_ID = (id: string | string[] | undefined) => {
   return BASE_URL + `3/movie/${id}?api_key=${API_KEY}&language=en-US`;
 };
+
+export const FETCH_RECOMMENDATIONS = (id: string) => {
+  return (
+    BASE_URL +
+    `3/movie/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`
+  );
+};

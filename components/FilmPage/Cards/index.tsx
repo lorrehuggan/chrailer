@@ -1,36 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { FETCH_CATEGORIES } from '../../lib/API/request';
-import { IMovie } from '../../types/interface';
-import Card from '../Card';
+import { FETCH_CATEGORIES } from '../../../lib/API/request';
+import { IMovie } from '../../../types/interface';
+import Card from '../../Card';
 
 type Props = {
-  genreID: string;
+  data: IMovie[] | null;
   name: string;
 };
 
-type ICategory = {
-  page: number;
-  results: IMovie[];
-  total_pages: number;
-  total_results: number;
-};
-
-const Cards: React.FC<Props> = ({ genreID, name }) => {
-  const [data, setData] = useState<ICategory | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch(FETCH_CATEGORIES(genreID, 1));
-      const json = await res.json();
-      setData(json);
-      return json;
-    })();
-  }, [genreID]);
-
-  const results = data?.results;
-
+const Cards: React.FC<Props> = ({ data: films, name }) => {
   return (
-    <section className="relative w-4/5 xl:w-2/3 mx-auto mt-4">
+    <section className="relative w-11/12 md:w-4/5 xl:w-2/3 mx-auto mt-4">
       <div className="flex row justify-between items-center mb-4">
         <h3 className="  uppercase text-2xl text-gray-700">{name}</h3>
         <svg
@@ -49,9 +29,9 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
         </svg>
       </div>
       <div className="flex overflow-x-auto snap-x space-x-2">
-        {results &&
-          results?.map((data: IMovie) => {
-            return <Card key={data.id} data={data} />;
+        {films &&
+          films?.map((film: IMovie) => {
+            return <Card key={film.id} data={film} />;
           })}
       </div>
     </section>

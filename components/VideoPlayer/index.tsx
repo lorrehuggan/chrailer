@@ -9,7 +9,6 @@ interface Props {
 const opts: any = {
   width: '100%',
   height: '400',
-
   playerVars: {
     autoplay: 1,
     controls: 0,
@@ -34,8 +33,10 @@ const VideoPlayer: React.FC<Props> = ({ title }) => {
   }, [title]);
 
   return (
-    <div className="w-full  md:w-4/5  xl:w-2/3 mx-auto overflow-hidden mt-4 ">
-      {videoID && <YouTube videoId={videoID} opts={opts} />}
+    <div className="w-full md:w-4/5  xl:w-2/3 mx-auto overflow-hidden mt-4 md:rounded-md ">
+      {videoID && (
+        <YouTube videoId={videoID} opts={{ ...opts, height: '350' }} />
+      )}
     </div>
   );
 };

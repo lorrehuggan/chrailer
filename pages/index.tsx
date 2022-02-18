@@ -1,6 +1,6 @@
 import type { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
-import Cards from '../components/Cards';
+import Cards from '../components/Home/Cards';
 import Hero from '../components/Home/Hero';
 import { FETCH_GENRE, FETCH_TRENDING } from '../lib/API/request';
 import { IGenre, IMovie } from '../types/interface';
