@@ -31,7 +31,6 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
   }, [genreID]);
 
   const results = data?.results;
-  const firstSixFilms = results?.slice(0, 6);
 
   return (
     <section className="relative w-4/5 xl:w-2/3 mx-auto mt-4">
@@ -52,8 +51,8 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
           />
         </svg>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 w-full gap-1 sm:gap-2">
-        {firstSixFilms?.map((data: IMovie) => {
+      <div className="flex overflow-x-auto snap-x space-x-2">
+        {results?.map((data: IMovie) => {
           return <Card key={data.id} data={data} />;
         })}
       </div>

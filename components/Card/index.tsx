@@ -9,7 +9,7 @@ type Props = {
 
 const Card: React.FC<Props> = ({ data }) => {
   return (
-    <div className="w-full aspect-card  bg-slate-900 relative rounded-lg cursor-pointer shadow">
+    <div className="w-48 aspect-card bg-slate-900 relative rounded-lg cursor-pointer shadow snap-start flex-shrink-0 lg:w-56">
       <Image
         src={IMAGE_PATH + data?.poster_path}
         alt={data?.title}
