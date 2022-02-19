@@ -28,10 +28,6 @@ const Hero: React.FC<Props> = ({ data, name }) => {
           </h1>
         </div>
       </section>
-
-      {playFeaturedFilm && (
-        <VideoPlayer title={data.title || data.original_title} />
-      )}
     </>
   );
 };

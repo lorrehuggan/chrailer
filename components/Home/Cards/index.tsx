@@ -18,23 +18,36 @@ type ICategory = {
 
 const Cards: React.FC<Props> = ({ genreID, name }) => {
   const [data, setData] = useState<ICategory | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(FETCH_CATEGORIES(genreID, 1));
-      const json = await res.json();
-      setData(json);
-      return json;
+      try {
+        const res = await fetch(FETCH_CATEGORIES(genreID, 1));
+        const json = await res.json();
+        setData(json);
+        setLoading(false);
+        return json;
+      } catch (error: any) {
+        setLoading(false);
+        setError(error.message);
+        console.log(error.message);
+      }
     })();
   }, [genreID]);
 
   const results = data?.results;
 
+  const placeholderArray = new Array(10).fill(0);
+
   return (
     <section className="relative w-11/12 md:w-4/5  xl:w-2/3 mx-auto mt-4">
       <div className="flex row justify-between items-center mb-4">
-        <h3 className="  uppercase text-2xl text-gray-700">{name}</h3>
-        <Link href={`/genre/${genreID}`} passHref>
+        <h3 className="  uppercase text-2xl text-gray-700">
+          {loading ? 'Loading' : name}
+        </h3>
+        <Link href={loading ? '' : `/genre/${genreID}`} passHref>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8 cursor-pointer hover:text-gray-500 transition-colors duration-300 ease-in-out"
@@ -51,12 +64,21 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
           </svg>
         </Link>
       </div>
-      <div className="flex overflow-x-auto snap-x space-x-2">
-        {results &&
-          results?.map((data: IMovie) => {
-            return <Card key={data.id} data={data} />;
+      {loading && (
+        <div className="flex overflow-x-auto snap-x space-x-2">
+          {placeholderArray.map((arr, i) => {
+            return <Card key={i} loading={loading} data={data?.results[0]!} />;
           })}
-      </div>
+        </div>
+      )}
+      {!loading && (
+        <div className="flex overflow-x-auto snap-x space-x-2">
+          {results &&
+            results?.map((data: IMovie) => {
+              return <Card key={data.id} loading={loading} data={data} />;
+            })}
+        </div>
+      )}
     </section>
   );
 };

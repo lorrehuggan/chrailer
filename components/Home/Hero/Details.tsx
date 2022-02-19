@@ -31,7 +31,7 @@ export default Details;
 const Title: React.FC<Data> = ({ data }) => {
   return (
     <h1 className="text-3xl sm:text-5xl lg:text-7xl text-gray-50 font-black ">
-      {data?.title || data?.original_title}
+      {data?.title || data?.original_title || 'Now Trending'}
     </h1>
   );
 };

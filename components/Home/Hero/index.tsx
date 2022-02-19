@@ -13,8 +13,8 @@ const Hero: React.FC<Props> = ({ data }) => {
   const [playFeaturedFilm, setPlayFeaturedFilm] = useState(false);
 
   return (
-    <>
-      <section className="relative h-96 w-full mx-auto shadow-2xl overflow-hidden md:w-4/5 md:rounded-lg bg-gray-800 xl:w-2/3 xl:h-[30rem]  ">
+    <section>
+      <div className="relative h-96 w-full mx-auto shadow-2xl overflow-hidden md:w-4/5 md:rounded-lg bg-gray-800 xl:w-2/3 xl:h-[30rem]">
         <Image
           src={IMAGE_PATH + data?.backdrop_path}
           alt={data?.title}
@@ -30,12 +30,12 @@ const Hero: React.FC<Props> = ({ data }) => {
           setPlay={setPlayFeaturedFilm}
           play={playFeaturedFilm}
         />
-      </section>
+      </div>
 
       {playFeaturedFilm && (
         <VideoPlayer title={data.title || data.original_title} />
       )}
-    </>
+    </section>
   );
 };
 

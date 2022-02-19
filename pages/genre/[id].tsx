@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FETCH_CATEGORIES, FETCH_GENRE } from '../../lib/API/request';
 import { IMovie } from '../../types/interface';
 import Head from 'next/head';
@@ -19,7 +19,15 @@ interface IGenre {
 }
 
 const Genre: React.FC<Props> = ({ pageOne, pageTwo, pageThree, genre }) => {
+  const [loading, setLoading] = useState(true);
   const randomNum = Math.floor(Math.random() * 10);
+
+  useEffect(() => {
+    if (pageOne && pageTwo && pageThree) {
+      setLoading(false);
+    }
+  }, [pageOne, pageTwo, pageThree]);
+
   return (
     <>
       <Head>
@@ -27,12 +35,12 @@ const Genre: React.FC<Props> = ({ pageOne, pageTwo, pageThree, genre }) => {
         <meta name="description" content={genre.name} />
       </Head>
       <Hero data={pageOne[randomNum]} name={genre.name} />
-      <Cards data={pageOne.slice(0, 10)} />
-      <Cards data={pageOne.slice(11, 20)} />
-      <Cards data={pageTwo.slice(0, 10)} />
-      <Cards data={pageTwo.slice(11, 20)} />
-      <Cards data={pageThree.slice(0, 10)} />
-      <Cards data={pageThree.slice(11, 20)} />
+      <Cards loading={loading} data={pageOne.slice(0, 10)} />
+      <Cards loading={loading} data={pageOne.slice(11, 20)} />
+      <Cards loading={loading} data={pageTwo.slice(0, 10)} />
+      <Cards loading={loading} data={pageTwo.slice(11, 20)} />
+      <Cards loading={loading} data={pageThree.slice(0, 10)} />
+      <Cards loading={loading} data={pageThree.slice(11, 20)} />
     </>
   );
 };
