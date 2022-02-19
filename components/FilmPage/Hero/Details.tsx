@@ -93,7 +93,7 @@ const Info: React.FC<IPlay> = ({ data, play, setPlay }) => {
 
 const Poster: React.FC<Props> = ({ data }) => {
   return (
-    <div className="hidden sm:absolute sm:flex right-0 bottom-0 w-16 sm:w-20 sm:h-32 md:w-28 md:h-40 bg-gray-900 shadow-lg rounded-sm">
+    <div className="hidden sm:absolute sm:flex right-0 bottom-0 h-40 aspect-card lg:h-56 xl:h-72 bg-gray-900 shadow-lg rounded-lg overflow-hidden">
       <Image
         src={IMAGE_PATH + data?.poster_path}
         alt={data?.title}

@@ -6,9 +6,10 @@ import Card from '../../Card';
 type Props = {
   data: IMovie[] | null;
   name: string;
+  loading: boolean;
 };
 
-const Cards: React.FC<Props> = ({ data: films, name }) => {
+const Cards: React.FC<Props> = ({ data: films, name, loading }) => {
   return (
     <section className="relative w-11/12 md:w-4/5 xl:w-2/3 mx-auto mt-4">
       <div className="flex row items-center">
@@ -32,7 +33,7 @@ const Cards: React.FC<Props> = ({ data: films, name }) => {
       <div className="flex overflow-x-auto snap-x space-x-2">
         {films &&
           films?.map((film: IMovie) => {
-            return <Card key={film.id} data={film} />;
+            return <Card key={film.id} loading={loading} data={film} />;
           })}
       </div>
     </section>

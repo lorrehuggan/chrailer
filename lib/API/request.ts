@@ -27,3 +27,10 @@ export const FETCH_RECOMMENDATIONS = (id: string) => {
     `3/movie/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`
   );
 };
+
+export const FETCH_QUERY = (page: number, query: string) => {
+  return (
+    BASE_URL +
+    `3/search/movie?api_key=${API_KEY}&language=en-US&page=${page}&include_adult=false&query=${query}`
+  );
+};

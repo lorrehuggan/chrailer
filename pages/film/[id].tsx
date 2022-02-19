@@ -20,14 +20,22 @@ export interface IPlaceholder {
 
 const Film: React.FC<Props> = ({ filmData }) => {
   const [play, setPlay] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [recommended, setRecommended] = useState<IMovie[] | null>(null);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(FETCH_RECOMMENDATIONS(String(filmData.id)));
-      const json = await res.json();
-      setRecommended(json.results);
-      return json;
+      try {
+        const res = await fetch(FETCH_RECOMMENDATIONS(String(filmData.id)));
+        const json = await res.json();
+        setRecommended(json.results);
+        setLoading(false);
+        return json;
+      } catch (error: any) {
+        setLoading(false);
+        setError(error.message);
+      }
     })();
   }, [filmData.id]);
 
@@ -83,7 +91,7 @@ const Film: React.FC<Props> = ({ filmData }) => {
         <VideoPlayer title={filmData.title || filmData.original_title} />
       )}
 
-      <Cards data={recommended} name="Recommended" />
+      <Cards data={recommended} loading={loading} name="Recommended" />
 
       <section className="w-11/12 md:w-4/5 xl:w-2/3 mx-auto flex mt-4 flex-wrap">
         {filmData.production_companies.map((production) => {

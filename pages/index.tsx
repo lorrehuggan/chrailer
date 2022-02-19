@@ -1,9 +1,7 @@
 import type { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
 import Cards from '../components/Home/Cards';
 import Hero from '../components/Home/Hero';
-import { useSearchState } from '../context/search/SearchProvider';
 import { FETCH_GENRE, FETCH_TRENDING } from '../lib/API/request';
 import { IGenre, IMovie } from '../types/interface';
 interface Props {
@@ -12,25 +10,18 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ trendingData, genreData }) => {
-  const [{ query }, dispatch] = useSearchState();
-
   const featuredFilm = trendingData[2];
 
   return (
     <>
       <Head>
-        <title>Mulas</title>
+        <title>Chrailer</title>
         <meta name="description" content="Trailer Extravaganza" />
       </Head>
       <Hero data={featuredFilm} />
       {genreData.map((data) => {
         return (
-          <Cards
-            key={data.id}
-            
-            genreID={String(data.id)}
-            name={data.name}
-          />
+          <Cards key={data.id} genreID={String(data.id)} name={data.name} />
         );
       })}
     </>
