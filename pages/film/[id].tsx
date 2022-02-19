@@ -7,6 +7,7 @@ import Hero from '../../components/FilmPage/Hero';
 import VideoPlayer from '../../components/VideoPlayer';
 import VideoPlaceholder from '../../components/VideoPlaceholder';
 import Cards from '../../components/FilmPage/Cards';
+import Link from 'next/link';
 
 interface Props {
   filmData: IMoviePage;
@@ -37,15 +38,14 @@ const Film: React.FC<Props> = ({ filmData }) => {
         <meta name="description" content={filmData.overview} />
       </Head>
       <Hero data={filmData} play={play} setPlay={setPlay} />
-      <div className="w-11/12 sm:w-4/5  xl:w-2/3 mx-auto mt-4 ">
+      <section className="w-11/12 sm:w-4/5  xl:w-2/3 mx-auto mt-4 ">
         {filmData.genres.map((genre) => {
           return (
-            <button
-              key={genre.id}
-              className="p-1 mr-2 cursor-pointer bg-red-200 rounded-md uppercase text-xs "
-            >
-              {genre.name}
-            </button>
+            <Link key={genre.id} href={`/genre/${genre.id}`} passHref>
+              <button className="p-1 mr-2 cursor-pointer bg-red-200 rounded-md uppercase text-xs hover:bg-red-400 transition-colors duration-300 ease-in-out ">
+                {genre.name}
+              </button>
+            </Link>
           );
         })}
         <div className="flex items-center mt-4">
@@ -77,7 +77,7 @@ const Film: React.FC<Props> = ({ filmData }) => {
               : `${filmData.title || filmData.original_title} trailer`}
           </p>
         </div>
-      </div>
+      </section>
       {!play && <VideoPlaceholder play={play} setPlay={setPlay} />}
       {play && (
         <VideoPlayer title={filmData.title || filmData.original_title} />
@@ -85,7 +85,7 @@ const Film: React.FC<Props> = ({ filmData }) => {
 
       <Cards data={recommended} name="Recommended" />
 
-      <div className="w-11/12 md:w-4/5 xl:w-2/3 mx-auto flex mt-4 flex-wrap">
+      <section className="w-11/12 md:w-4/5 xl:w-2/3 mx-auto flex mt-4 flex-wrap">
         {filmData.production_companies.map((production) => {
           return (
             <p className="text-xs mr-1" key={production.id}>
@@ -93,8 +93,7 @@ const Film: React.FC<Props> = ({ filmData }) => {
             </p>
           );
         })}
-      </div>
-      <div></div>
+      </section>
     </>
   );
 };

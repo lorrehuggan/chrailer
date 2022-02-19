@@ -10,6 +10,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ trendingData, genreData }) => {
+
   const featuredFilm = trendingData[6];
   return (
     <>

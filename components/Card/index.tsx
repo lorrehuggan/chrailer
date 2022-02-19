@@ -16,7 +16,7 @@ const Card: React.FC<Props> = ({ data }) => {
           src={IMAGE_PATH + data?.poster_path}
           alt={data?.title}
           layout="fill"
-          className="rounded-md opacity-100 sm:opacity-90 hover:opacity-100 transition duration-300 ease-in-out"
+          className="rounded-md opacity-100 sm:opacity-90 hover:opacity-[1.5] transition duration-300 ease-in-out"
         />
       </div>
     </Link>
