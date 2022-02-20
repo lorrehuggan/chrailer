@@ -1,13 +1,14 @@
 import { GetServerSideProps } from 'next';
 import React, { useEffect, useState } from 'react';
 import { FETCH_BY_ID, FETCH_RECOMMENDATIONS } from '../../lib/API/request';
-import { IMovie, IMoviePage } from '../../types/interface';
+import { IMovieResults, IMoviePage } from '../../types/interface';
 import Head from 'next/head';
 import Hero from '../../components/FilmPage/Hero';
 import VideoPlayer from '../../components/VideoPlayer';
 import VideoPlaceholder from '../../components/VideoPlaceholder';
 import Cards from '../../components/FilmPage/Cards';
 import Link from 'next/link';
+import useSWR, { SWRResponse } from 'swr';
 
 interface Props {
   filmData: IMoviePage;
@@ -21,23 +22,15 @@ export interface IPlaceholder {
 const Film: React.FC<Props> = ({ filmData }) => {
   const [play, setPlay] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [recommended, setRecommended] = useState<IMovie[] | null>(null);
+  const { data, error }: SWRResponse<IMovieResults, any> = useSWR(
+    FETCH_RECOMMENDATIONS(String(filmData.id))
+  );
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(FETCH_RECOMMENDATIONS(String(filmData.id)));
-        const json = await res.json();
-        setRecommended(json.results);
-        setLoading(false);
-        return json;
-      } catch (error: any) {
-        setLoading(false);
-        setError(error.message);
-      }
-    })();
-  }, [filmData.id]);
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
 
   return (
     <>
@@ -91,7 +84,7 @@ const Film: React.FC<Props> = ({ filmData }) => {
         <VideoPlayer title={filmData.title || filmData.original_title} />
       )}
 
-      <Cards data={recommended} loading={loading} name="Recommended" />
+      <Cards data={data?.results} loading={loading} name="Recommended" />
 
       <section className="w-11/12 md:w-4/5 xl:w-2/3 mx-auto flex mt-4 flex-wrap">
         {filmData.production_companies.map((production) => {

@@ -3,25 +3,27 @@ import { FETCH_GENRE } from '../../lib/API/request';
 import { IGenre } from '../../types/interface';
 import Link from 'next/link';
 import { useMenuState } from '../../context/menu/MenuProvider';
+import useSWR, { SWRResponse } from 'swr';
 
 interface IMenu {}
 
+interface IGenreResponse {
+  genres: IGenre[];
+}
+
 const Menu: React.FC<IMenu> = () => {
-  const [genres, setGenres] = useState<IGenre[] | null>(null);
   const [{ active }, dispatch] = useMenuState();
+  const { data, error }: SWRResponse<IGenreResponse, any> = useSWR(
+    FETCH_GENRE()
+  );
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(FETCH_GENRE());
-        const json = await res.json();
-        setGenres(json.genres);
-        return json;
-      } catch (error: any) {
-        console.log(error.message);
-      }
-    })();
-  }, []);
+    if (data) {
+      console.log(data);
+      setLoading(false);
+    }
+  }, [data]);
 
   return (
     <section
@@ -29,7 +31,7 @@ const Menu: React.FC<IMenu> = () => {
         active ? 'right-0' : '-right-100'
       } transition-all ease-in-out`}
     >
-      {genres?.map((genre: IGenre) => {
+      {data?.genres.map((genre: IGenre) => {
         return (
           <Link key={genre.id} href={`/genre/${genre.id}`} passHref>
             <div

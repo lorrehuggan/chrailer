@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Card from '../Card';
 
 type Props = {
-  data: IMovie[];
+  data: IMovie[] | undefined;
   loading: boolean;
 };
 

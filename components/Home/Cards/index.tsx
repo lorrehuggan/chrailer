@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FETCH_CATEGORIES } from '../../../lib/API/request';
-import { IMovie } from '../../../types/interface';
+import { IMovieResults, IMovie } from '../../../types/interface';
 import Link from 'next/link';
 import Card from '../../Card';
 import useSWR, { SWRResponse } from 'swr';
@@ -10,43 +10,16 @@ type Props = {
   name: string;
 };
 
-type ICategory = {
-  page: number;
-  results: IMovie[];
-  total_pages: number;
-  total_results: number;
-};
-
-const fetcher = (args: string) => fetch(args).then((r) => r.json());
-
 const Cards: React.FC<Props> = ({ genreID, name }) => {
-  // const [data, setData] = useState<ICategory | null>(null);
   const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const res = await fetch(FETCH_CATEGORIES(genreID, 1));
-  //       const json = await res.json();
-  //       setData(json);
-  //       setLoading(false);
-  //       return json;
-  //     } catch (error: any) {
-  //       setLoading(false);
-  //       setError(error.message);
-  //       console.log(error.message);
-  //     }
-  //   })();
-  // }, [genreID]);
-  const { data, error }: SWRResponse<ICategory, any> = useSWR(
-    FETCH_CATEGORIES(genreID, 1),
-    fetcher
+  const { data, error }: SWRResponse<IMovieResults, any> = useSWR(
+    FETCH_CATEGORIES(genreID, 1)
   );
 
   useEffect(() => {
     if (data) {
       setLoading(false);
+      console.log(data);
     }
   }, [data]);
 

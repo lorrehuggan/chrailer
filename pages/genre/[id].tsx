@@ -35,12 +35,12 @@ const Genre: React.FC<Props> = ({ pageOne, pageTwo, pageThree, genre }) => {
         <meta name="description" content={genre.name} />
       </Head>
       <Hero data={pageOne[randomNum]} name={genre.name} />
-      <Cards loading={loading} data={pageOne.slice(0, 10)} />
-      <Cards loading={loading} data={pageOne.slice(11, 20)} />
-      <Cards loading={loading} data={pageTwo.slice(0, 10)} />
-      <Cards loading={loading} data={pageTwo.slice(11, 20)} />
-      <Cards loading={loading} data={pageThree.slice(0, 10)} />
-      <Cards loading={loading} data={pageThree.slice(11, 20)} />
+      <Cards loading={loading} data={pageOne?.slice(0, 10)} />
+      <Cards loading={loading} data={pageOne?.slice(11, 20)} />
+      <Cards loading={loading} data={pageTwo?.slice(0, 10)} />
+      <Cards loading={loading} data={pageTwo?.slice(11, 20)} />
+      <Cards loading={loading} data={pageThree?.slice(0, 10)} />
+      <Cards loading={loading} data={pageThree?.slice(11, 20)} />
     </>
   );
 };

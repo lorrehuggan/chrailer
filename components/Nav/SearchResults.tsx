@@ -5,7 +5,7 @@ import Cards from '../Cards';
 interface ISearchResults {
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
   query: string;
-  data: IMovie[];
+  data: IMovie[] | undefined;
   loading: boolean;
 }
 
@@ -15,10 +15,16 @@ const SearchResults: React.FC<ISearchResults> = ({
   data,
   loading,
 }) => {
+  console.log(data?.length);
+
   return (
     <section>
       <div className="w-11/12 md:w-4/5 xl:w-2/3 mx-auto flex justify-between">
-        <p className="uppercase font-bold text-gray-400">{query.trim()}</p>
+        <p className="uppercase font-bold text-gray-400">
+          {data?.length === 0 || undefined
+            ? `No results for ${query.trim()}`
+            : query.trim()}
+        </p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 hover:text-red-500 cursor-pointer transition-colors duration-200"
@@ -40,7 +46,7 @@ const SearchResults: React.FC<ISearchResults> = ({
           setIsSearching(false);
         }}
       >
-        <Cards data={data!} loading={loading} />
+        <Cards data={data} loading={loading} />
       </div>
     </section>
   );

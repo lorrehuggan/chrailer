@@ -4,7 +4,7 @@ import { IMovie } from '../../../types/interface';
 import Card from '../../Card';
 
 type Props = {
-  data: IMovie[] | null;
+  data: IMovie[] | undefined;
   name: string;
   loading: boolean;
 };

@@ -2,37 +2,32 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchState } from '../../context/search/SearchProvider';
 import { FETCH_QUERY } from '../../lib/API/request';
-import { IMovie } from '../../types/interface';
+import { IMovieResults } from '../../types/interface';
 import Menu from '../MobileMenu';
 import Search from './Search';
 import SearchResults from './SearchResults';
 import MenuBurger from './MenuBurger';
 import { useMenuState } from '../../context/menu/MenuProvider';
+import useSWR, { SWRResponse } from 'swr';
 
 type Props = {};
 
 const Nav = (props: Props) => {
   const [{ active }, menuDispatch] = useMenuState();
   const [value, setValue] = useState({ query: '' });
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [{ query }, dispatch] = useSearchState();
   const [isSearching, setIsSearching] = useState(false);
-  const [data, setData] = useState<IMovie[] | null>(null);
+
+  const { data, error }: SWRResponse<IMovieResults, any> = useSWR(
+    FETCH_QUERY(1, query)
+  );
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(FETCH_QUERY(1, query));
-        const json = await res.json();
-        setData(json.results);
-        setLoading(false);
-      } catch (error: any) {
-        setError(error.message);
-      }
-    })();
-  }, [query]);
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({
@@ -60,9 +55,8 @@ const Nav = (props: Props) => {
 
   return (
     <nav
-      className={`${
-        !isSearching ? 'h-20' : 'h-[27rem] lg:h-[30rem]'
-      } w-full sticky top-0 z-50 bg-white transition-all duration-200`}
+      className={`${isSearching ? 'h-[27rem] lg:h-[30rem]' : 'h-20'} 
+      w-full sticky top-0 z-50 bg-white transition-all duration-200`}
     >
       <section
         className={`w-4/5 xl:w-2/3 flex h-20 flex-row items-center justify-between mx-auto`}
@@ -93,7 +87,7 @@ const Nav = (props: Props) => {
       </section>
       {isSearching && (
         <SearchResults
-          data={data!}
+          data={data?.results}
           query={query}
           loading={loading}
           setIsSearching={setIsSearching}

@@ -8,14 +8,20 @@ import {
   searchReducer,
 } from '../context/search/SearchReducer';
 import { initMenuState, menuReducer } from '../context/menu/MenuReducer';
+import { SWRConfig } from 'swr';
+
+const fetcher = (args: string) =>
+  fetch(args).then((response) => response.json());
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SearchProvider initialState={initSearchState} reducer={searchReducer}>
       <MenuProvider initialState={initMenuState} reducer={menuReducer}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SWRConfig value={{ fetcher }}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SWRConfig>
       </MenuProvider>
     </SearchProvider>
   );

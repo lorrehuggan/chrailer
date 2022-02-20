@@ -71,3 +71,10 @@ export interface SpokenLanguage {
   iso_639_1: string;
   name: string;
 }
+
+export interface IMovieResults {
+  page: number;
+  results: IMovie[];
+  total_pages: number;
+  total_results: number;
+}
