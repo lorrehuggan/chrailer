@@ -1,17 +1,17 @@
 import { GetServerSideProps } from 'next';
 import React, { useEffect, useState } from 'react';
 import { FETCH_BY_ID, FETCH_RECOMMENDATIONS } from '../../lib/API/request';
-import { IMovieResults, IMoviePage } from '../../types/interface';
+import { IMovieResults, IMoviePage, IMovie } from '../../types/interface';
 import Head from 'next/head';
 import Hero from '../../components/FilmPage/Hero';
 import VideoPlayer from '../../components/VideoPlayer';
 import VideoPlaceholder from '../../components/VideoPlaceholder';
 import Cards from '../../components/FilmPage/Cards';
 import Link from 'next/link';
-import useSWR, { SWRResponse } from 'swr';
 
 interface Props {
   filmData: IMoviePage;
+  recommended: IMovie[];
 }
 
 export interface IPlaceholder {
@@ -19,18 +19,15 @@ export interface IPlaceholder {
   play: boolean;
 }
 
-const Film: React.FC<Props> = ({ filmData }) => {
+const Film: React.FC<Props> = ({ filmData, recommended }) => {
   const [play, setPlay] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { data, error }: SWRResponse<IMovieResults, any> = useSWR(
-    FETCH_RECOMMENDATIONS(String(filmData.id))
-  );
 
   useEffect(() => {
-    if (data) {
+    if (recommended) {
       setLoading(false);
     }
-  }, [data]);
+  }, [recommended]);
 
   return (
     <>
@@ -84,7 +81,7 @@ const Film: React.FC<Props> = ({ filmData }) => {
         <VideoPlayer title={filmData.title || filmData.original_title} />
       )}
 
-      <Cards data={data?.results} loading={loading} name="Recommended" />
+      <Cards data={recommended} loading={loading} name="Recommended" />
 
       <section className="w-11/12 md:w-4/5 xl:w-2/3 mx-auto flex mt-4 flex-wrap">
         {filmData.production_companies.map((production) => {
@@ -113,10 +110,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 
   const filmData = await getData(FETCH_BY_ID(params?.id));
+  const recommended = await getData(FETCH_RECOMMENDATIONS(filmData.id));
 
   return {
     props: {
       filmData,
+      recommended: recommended.results,
     },
   };
 };
