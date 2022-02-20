@@ -11,7 +11,7 @@ const VideoPlaceholder: React.FC<IPlaceholder> = ({ play, setPlay }) => {
   };
 
   return (
-    <div className="w-full  md:w-4/5  xl:w-2/3 overflow-hidden  mx-auto mt-4 h-[400px] md:rounded-md bg-black flex items-center">
+    <div className="w-full  md:w-4/5  xl:w-2/3 overflow-hidden  mx-auto mt-4 h-[225px] sm:h-[400px] md:rounded-md bg-black flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="cursor-pointer h-28 w-28 mx-auto text-white hover:text-gray-700"

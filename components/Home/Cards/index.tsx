@@ -19,7 +19,6 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
   useEffect(() => {
     if (data) {
       setLoading(false);
-      console.log(data);
     }
   }, [data]);
 

@@ -14,7 +14,7 @@ const Hero: React.FC<Props> = ({ data }) => {
 
   return (
     <section>
-      <div className="relative h-96 w-full mx-auto shadow-2xl overflow-hidden md:w-4/5 md:rounded-lg bg-gray-800 xl:w-2/3 xl:h-[30rem]">
+      <div className="relative h-80 sm:h-96 w-full mx-auto shadow-2xl overflow-hidden md:w-4/5 md:rounded-lg bg-gray-800 xl:w-2/3 xl:h-[30rem]">
         <Image
           src={IMAGE_PATH + data?.backdrop_path}
           alt={data?.title}
