@@ -11,11 +11,11 @@ interface IValue {
 
 const Search: React.FC<ISearch> = ({ handleSubmit, value, handleChange }) => {
   return (
-    <div className=" sm:flex ml-4 mr-4 sm:mr-0">
+    <div className=" sm:flex ml-2 mr-2 sm:mr-0">
       <form onSubmit={handleSubmit} className="flex row">
         <input
           type="text"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-base sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
           name="query"
           value={value.query}
           onChange={handleChange}
