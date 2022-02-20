@@ -59,7 +59,7 @@ const Nav = (props: Props) => {
       w-full sticky top-0 z-50 bg-white transition-all duration-200`}
     >
       <section
-        className={`w-4/5 xl:w-2/3 flex h-20 flex-row items-center justify-between mx-auto`}
+        className={`w-10/11 px-2  sm:px-0 sm:w-4/5 xl:w-2/3 flex h-20 flex-row items-center justify-between mx-auto`}
       >
         <div>
           <Link href={`/`} passHref>
@@ -68,7 +68,7 @@ const Nav = (props: Props) => {
             </h2>
           </Link>
         </div>
-        <div className="flex items-center">
+        <div className=" flex items-center">
           <ul className=" hidden sm:flex flex-row items-center text-xs">
             <Link href={`/genre/16`} passHref>
               <li className="ml-2 uppercase cursor-pointer">Anime</li>
