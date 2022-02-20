@@ -3,6 +3,7 @@ import { FETCH_CATEGORIES } from '../../../lib/API/request';
 import { IMovie } from '../../../types/interface';
 import Link from 'next/link';
 import Card from '../../Card';
+import useSWR, { SWRResponse } from 'swr';
 
 type Props = {
   genreID: string;
@@ -16,26 +17,38 @@ type ICategory = {
   total_results: number;
 };
 
+const fetcher = (args: string) => fetch(args).then((r) => r.json());
+
 const Cards: React.FC<Props> = ({ genreID, name }) => {
-  const [data, setData] = useState<ICategory | null>(null);
+  // const [data, setData] = useState<ICategory | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const res = await fetch(FETCH_CATEGORIES(genreID, 1));
+  //       const json = await res.json();
+  //       setData(json);
+  //       setLoading(false);
+  //       return json;
+  //     } catch (error: any) {
+  //       setLoading(false);
+  //       setError(error.message);
+  //       console.log(error.message);
+  //     }
+  //   })();
+  // }, [genreID]);
+  const { data, error }: SWRResponse<ICategory, any> = useSWR(
+    FETCH_CATEGORIES(genreID, 1),
+    fetcher
+  );
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(FETCH_CATEGORIES(genreID, 1));
-        const json = await res.json();
-        setData(json);
-        setLoading(false);
-        return json;
-      } catch (error: any) {
-        setLoading(false);
-        setError(error.message);
-        console.log(error.message);
-      }
-    })();
-  }, [genreID]);
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
 
   const results = data?.results;
 
