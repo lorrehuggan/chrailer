@@ -29,7 +29,6 @@ const Cards: React.FC<Props> = ({ data: films, name, loading }) => {
         </svg>
         <h3 className="  uppercase text-2xl mb-2 text-gray-700">{name}</h3>
       </div>
-
       <div className="flex overflow-x-auto snap-x space-x-2">
         {films &&
           films?.map((film: IMovie) => {

@@ -40,7 +40,7 @@ const Film: React.FC<Props> = ({ filmData, recommended }) => {
         {filmData.genres.map((genre) => {
           return (
             <Link key={genre.id} href={`/genre/${genre.id}`} passHref>
-              <button className="p-1 mr-2 cursor-pointer bg-red-200 rounded-md uppercase text-xs hover:bg-red-400 transition-colors duration-300 ease-in-out ">
+              <button className="p-1 z-50 mr-2 cursor-pointer bg-red-200 rounded-md uppercase text-xs hover:bg-red-400 transition-colors duration-300 ease-in-out ">
                 {genre.name}
               </button>
             </Link>
@@ -80,6 +80,8 @@ const Film: React.FC<Props> = ({ filmData, recommended }) => {
       {play && (
         <VideoPlayer title={filmData.title || filmData.original_title} />
       )}
+
+      <p>{recommended[0].id}</p>
 
       <Cards data={recommended} loading={loading} name="Recommended" />
 
