@@ -11,7 +11,7 @@ interface IValue {
 
 const Search: React.FC<ISearch> = ({ handleSubmit, value, handleChange }) => {
   return (
-    <div className=" sm:flex ml-8 mr-2 sm:mr-0">
+    <div className=" sm:flex ml-8 mr-2 sm:mr-0 sm:ml-2">
       <form onSubmit={handleSubmit} className="flex row">
         <input
           type="text"
