@@ -57,7 +57,7 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
         </div>
       )}
       {!loading && (
-        <div className="flex overflow-x-auto snap-x space-x-2">
+        <div className="flex overflow-x-auto sm:snap-x sm:space-x-2">
           {results &&
             results?.map((data: IMovie) => {
               return <Card key={data.id} loading={loading} data={data} />;

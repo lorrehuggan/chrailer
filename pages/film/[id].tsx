@@ -81,8 +81,6 @@ const Film: React.FC<Props> = ({ filmData, recommended }) => {
         <VideoPlayer title={filmData.title || filmData.original_title} />
       )}
 
-      <p>{recommended[0].id}</p>
-
       <Cards data={recommended} loading={loading} name="Recommended" />
 
       <section className="w-11/12 md:w-4/5 xl:w-2/3 mx-auto flex mt-4 flex-wrap">
