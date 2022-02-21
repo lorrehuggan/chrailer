@@ -31,8 +31,8 @@ const Cards: React.FC<Props> = ({ data: films, name, loading }) => {
       </div>
       <div className="flex overflow-x-auto snap-x space-x-2">
         {films &&
-          films?.map((film: IMovie) => {
-            return <Card key={film.id} loading={loading} data={film} />;
+          films?.map((film: IMovie, i) => {
+            return <Card key={film.id} idx={i} loading={loading} data={film} />;
           })}
       </div>
     </section>
