@@ -65,7 +65,7 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
               return (
                 <div
                   key={result.id}
-                  className="w-48 aspect-card bg-slate-500 relative cursor-pointer mx-0.5 overflow-hidden rounded"
+                  className="w-48 h-48 cursor-pointer bg-slate-500 relative mx-0.5 overflow-hidden rounded"
                 >
                   <Image
                     src={IMAGE_PATH + result?.poster_path}
