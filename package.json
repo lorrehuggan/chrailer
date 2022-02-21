@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^6.2.6",
     "movie-trailer": "^2.1.0",
     "next": "12.0.10",
     "react": "17.0.2",

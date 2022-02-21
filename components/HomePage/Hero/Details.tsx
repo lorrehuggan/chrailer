@@ -106,11 +106,15 @@ const Info: React.FC<Props> = ({ data, play, setPlay }) => {
 
 const Poster: React.FC<Data> = ({ data }) => {
   return (
-    <div className="hidden sm:absolute sm:flex right-0 bottom-0 h-40 aspect-card lg:h-56 xl:h-72 bg-gray-900 shadow-lg rounded-lg overflow-hidden">
+    <div className="hidden sm:absolute sm:flex right-0 bottom-0 h-40 w- md:aspect-card lg:h-56 xl:h-72 bg-gray-900 shadow-lg rounded-lg ">
+      <div className="bg-red-500 flex justify-center p-4 shadow-md  items-center h-8 -mt-4 rounded-sm -ml-5 z-50 transform -rotate-12 -skew-x-6">
+        <p className="text-white font-bold">Featured</p>
+      </div>
       <Image
         src={IMAGE_PATH + data?.poster_path}
         alt={data?.title}
         layout="fill"
+        className="rounded-xl"
       />
     </div>
   );

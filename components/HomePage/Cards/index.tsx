@@ -4,6 +4,8 @@ import { IMovieResults, IMovie } from '../../../types/interface';
 import Link from 'next/link';
 import Card from '../../Card';
 import useSWR, { SWRResponse } from 'swr';
+import { motion } from 'framer-motion';
+import { ANIMATION_CONTAINER } from './animations';
 
 type Props = {
   genreID: string;
@@ -26,7 +28,12 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
   const placeholderArray = new Array(10).fill(0);
 
   return (
-    <section className="relative w-11/12 md:w-4/5  xl:w-2/3 mx-auto mt-4">
+    <motion.section
+      variants={ANIMATION_CONTAINER}
+      initial="hidden"
+      animate="show"
+      className="relative w-11/12 md:w-4/5 xl:w-2/3 mx-auto mt-4"
+    >
       <div className="flex row justify-between items-center mb-4">
         <h3 className="text-xl text-gray-700 underline-offset-4">
           {loading ? 'Loading' : name}
@@ -51,19 +58,28 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
       {loading && (
         <div className="flex overflow-x-auto snap-x space-x-2">
           {placeholderArray.map((arr, i) => {
-            return <Card key={i} loading={loading} data={data?.results[0]!} />;
+            return (
+              <Card
+                key={i}
+                idx={i}
+                loading={loading}
+                data={data?.results[0]!}
+              />
+            );
           })}
         </div>
       )}
       {!loading && (
         <div className="flex overflow-x-auto snap-x space-x-2">
           {results &&
-            results?.map((data: IMovie) => {
-              return <Card key={data.id} loading={loading} data={data} />;
+            results?.map((data: IMovie, idx: number) => {
+              return (
+                <Card key={data.id} idx={idx} loading={loading} data={data} />
+              );
             })}
         </div>
       )}
-    </section>
+    </motion.section>
   );
 };
 
