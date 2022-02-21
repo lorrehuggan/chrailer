@@ -2,17 +2,26 @@ import type { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Cards from '../components/HomePage/Cards';
 import Hero from '../components/HomePage/Hero';
-import { FETCH_GENRE, FETCH_TRENDING } from '../lib/API/request';
-import { IGenre, IMovie } from '../types/interface';
+import {
+  FETCH_GENRE,
+  FETCH_TOP_RATED,
+  FETCH_TRENDING,
+  FETCH_UPCOMING,
+} from '../lib/API/request';
+import { IGenre, IKeywords, IMovie } from '../types/interface';
+import HomeCards from '../components/Cards';
 interface Props {
-  trendingData: IMovie[];
-  genreData: IGenre[];
+  trending: IMovie[];
+  upcoming: IMovie[];
+  top_rated: IMovie[];
+
+  genre: IGenre[];
 }
 
-const Home: NextPage<Props> = ({ trendingData, genreData }) => {
-  const featuredFilm = trendingData[2];
+const Home: NextPage<Props> = ({ trending, genre, upcoming, top_rated }) => {
+  const featuredFilm = trending[2];
 
-  const tags = trendingData.slice(0, 10).map((data) => {
+  const tags = trending.slice(0, 10).map((data) => {
     return data.title;
   });
 
@@ -24,11 +33,18 @@ const Home: NextPage<Props> = ({ trendingData, genreData }) => {
         <meta name="tags" content={tags.toString()} />
       </Head>
       <Hero data={featuredFilm} />
-      {genreData.map((data) => {
-        return (
-          <Cards key={data.id} genreID={String(data.id)} name={data.name} />
-        );
-      })}
+
+      <HomeCards data={trending} title="Trending" loading={false} />
+      <HomeCards data={upcoming} title="Coming Soon" loading={false} />
+      <HomeCards data={top_rated} title="Top Rated" loading={false} />
+
+      {genre
+        .sort((a, b) => a.id * 2 - Math.floor(b.id / 2))
+        .map((data) => {
+          return (
+            <Cards key={data.id} genreID={String(data.id)} name={data.name} />
+          );
+        })}
     </>
   );
 };
@@ -45,13 +61,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
       console.log(error.message);
     }
   };
-  let trendingData = await getData(FETCH_TRENDING(1));
-  let genreData = await getData(FETCH_GENRE());
+  let trending = await getData(FETCH_TRENDING(1));
+  let genre = await getData(FETCH_GENRE());
+  let upcoming = await getData(FETCH_UPCOMING());
+  let top_rated = await getData(FETCH_TOP_RATED());
 
   return {
     props: {
-      trendingData: trendingData.results,
-      genreData: genreData.genres,
+      trending: trending.results,
+      genre: genre.genres,
+      upcoming: upcoming.results,
+      top_rated: top_rated.results,
     },
+    revalidate: 259200,
   };
 };

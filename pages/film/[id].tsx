@@ -1,7 +1,11 @@
 import { GetServerSideProps } from 'next';
-import React, { useEffect, useState } from 'react';
-import { FETCH_BY_ID, FETCH_RECOMMENDATIONS } from '../../lib/API/request';
-import { IMoviePage, IMovie } from '../../types/interface';
+import React, { useEffect, useState, useMemo } from 'react';
+import {
+  FETCH_BY_ID,
+  FETCH_KEYWORDS,
+  FETCH_RECOMMENDATIONS,
+} from '../../lib/API/request';
+import { IMoviePage, IMovie, IKeywords } from '../../types/interface';
 import Head from 'next/head';
 import Hero from '../../components/FilmPage/Hero';
 import VideoPlayer from '../../components/VideoPlayer';
@@ -12,6 +16,7 @@ import Link from 'next/link';
 interface Props {
   filmData: IMoviePage;
   recommended: IMovie[];
+  keywords: IKeywords[];
 }
 
 export interface IPlaceholder {
@@ -19,9 +24,15 @@ export interface IPlaceholder {
   play: boolean;
 }
 
-const Film: React.FC<Props> = ({ filmData, recommended }) => {
+const Film: React.FC<Props> = ({ filmData, recommended, keywords }) => {
   const [play, setPlay] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [tags, setTags] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    const tag = keywords.map((keyword) => keyword.name);
+    setTags(tag);
+  }, [keywords]);
 
   useEffect(() => {
     if (recommended) {
@@ -34,7 +45,7 @@ const Film: React.FC<Props> = ({ filmData, recommended }) => {
       <Head>
         <title>{filmData.title}</title>
         <meta name="description" content={filmData.overview} />
-        <meta name="tags" content={filmData.original_title || filmData.title} />
+        <meta name="tags" content={tags?.toString()} />
       </Head>
       <Hero data={filmData} play={play} setPlay={setPlay} />
       <section className="w-11/12 sm:w-4/5  xl:w-2/3 mx-auto mt-4 ">
@@ -112,11 +123,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const filmData = await getData(FETCH_BY_ID(params?.id));
   const recommended = await getData(FETCH_RECOMMENDATIONS(filmData.id));
+  const keywords = await getData(FETCH_KEYWORDS(filmData.id));
 
   return {
     props: {
       filmData,
       recommended: recommended.results,
+      keywords: keywords.keywords,
     },
   };
 };

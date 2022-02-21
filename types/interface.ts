@@ -21,6 +21,11 @@ export interface IGenre {
   name: string;
 }
 
+export interface IKeywords {
+  id: number;
+  name: string;
+}
+
 export interface IMoviePage {
   adult: boolean;
   backdrop_path: string;
