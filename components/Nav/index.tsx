@@ -63,7 +63,7 @@ const Nav = (props: Props) => {
       >
         <div>
           <Link href={`/`} passHref>
-            <h2 className="text-xl sm:text-3xl uppercase font-black text-blue-500 hover:text-blue-600 transition-colors duration-500 cursor-pointer">
+            <h2 className="text-xl sm:text-3xl uppercase font-black text-blue-500 hover:text-blue-700 transition-colors duration-500 cursor-pointer">
               chrailer
             </h2>
           </Link>
