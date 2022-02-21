@@ -60,24 +60,28 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
       )}
       {!loading && (
         <>
-          <div className="h-20 w-20 relative flex ">
-            {results?.slice(0, 1).map((result) => {
+          <div className="sm:hidden flex overflow-x-scroll">
+            {results?.slice(0, 4).map((result) => {
               return (
-                <Image
+                <div
                   key={result.id}
-                  src={IMAGE_PATH + result?.poster_path}
-                  alt={result.title}
-                  layout="fill"
-                />
+                  className="w-48 aspect-card bg-slate-500 relative rounded-lg cursor-pointer flex-shrink-0 lg:w-56 mr-1"
+                >
+                  <Image
+                    src={IMAGE_PATH + result?.poster_path}
+                    alt={result.title}
+                    layout="fill"
+                  />
+                </div>
               );
             })}
           </div>
-          {/* <div className="flex overflow-x-auto snap-x space-x-2">
+          <div className="hidden sm:flex overflow-x-auto snap-x space-x-2">
             {results &&
               results?.map((data: IMovie) => {
                 return <Card key={data.id} loading={loading} data={data} />;
               })}
-          </div> */}
+          </div>
         </>
       )}
     </section>
