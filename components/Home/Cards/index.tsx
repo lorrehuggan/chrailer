@@ -4,6 +4,8 @@ import { IMovieResults, IMovie } from '../../../types/interface';
 import Link from 'next/link';
 import Card from '../../Card';
 import useSWR, { SWRResponse } from 'swr';
+import Image from 'next/image';
+import { IMAGE_PATH } from '../../../lib/API';
 
 type Props = {
   genreID: string;
@@ -57,12 +59,26 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
         </div>
       )}
       {!loading && (
-        <div className="flex overflow-x-auto sm:snap-x sm:space-x-2">
-          {results &&
-            results?.map((data: IMovie) => {
-              return <Card key={data.id} loading={loading} data={data} />;
+        <>
+          <div className="h-20 w-20 relative flex ">
+            {results?.slice(0, 1).map((result) => {
+              return (
+                <Image
+                  key={result.id}
+                  src={IMAGE_PATH + result?.poster_path}
+                  alt={result.title}
+                  layout="fill"
+                />
+              );
             })}
-        </div>
+          </div>
+          {/* <div className="flex overflow-x-auto snap-x space-x-2">
+            {results &&
+              results?.map((data: IMovie) => {
+                return <Card key={data.id} loading={loading} data={data} />;
+              })}
+          </div> */}
+        </>
       )}
     </section>
   );
