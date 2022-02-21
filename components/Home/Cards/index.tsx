@@ -63,15 +63,16 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
           <div className="sm:hidden flex justify-between">
             {results?.slice(0, 4).map((result) => {
               return (
-                <Link key={result.id} href={`/film/${result.id}`} passHref>
-                  <div className="w-48 aspect-card bg-slate-500 relative cursor-pointer mx-0.5 overflow-hidden rounded">
-                    <Image
-                      src={IMAGE_PATH + result?.poster_path}
-                      alt={result.title}
-                      layout="fill"
-                    />
-                  </div>
-                </Link>
+                <div
+                  key={result.id}
+                  className="w-48 aspect-card bg-slate-500 relative cursor-pointer mx-0.5 overflow-hidden rounded"
+                >
+                  <Image
+                    src={IMAGE_PATH + result?.poster_path}
+                    alt={result.title}
+                    layout="fill"
+                  />
+                </div>
               );
             })}
           </div>
