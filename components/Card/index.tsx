@@ -12,7 +12,7 @@ type Props = {
 const Card: React.FC<Props> = ({ data, loading }) => {
   return (
     <Link href={`/film/${data?.id}`} passHref>
-      <div className="w-48 aspect-card bg-slate-500 relative rounded-lg cursor-pointer snap-start flex-shrink-0 lg:w-56">
+      <div className="w-48 h-72 md:h-80 bg-slate-500 relative rounded-lg cursor-pointer snap-start flex-shrink-0 lg:w-56">
         {!loading && (
           <Image
             src={IMAGE_PATH + data?.poster_path}

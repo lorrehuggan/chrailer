@@ -60,7 +60,7 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
       )}
       {!loading && (
         <>
-          <div className="sm:hidden flex justify-between">
+          {/* <div className="sm:hidden flex justify-between">
             {results?.slice(0, 4).map((result) => {
               return (
                 <div
@@ -75,8 +75,8 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
                 </div>
               );
             })}
-          </div>
-          <div className="hidden sm:flex overflow-x-auto snap-x space-x-2">
+          </div> */}
+          <div className="flex overflow-x-auto snap-x space-x-2">
             {results &&
               results?.map((data: IMovie) => {
                 return <Card key={data.id} loading={loading} data={data} />;
