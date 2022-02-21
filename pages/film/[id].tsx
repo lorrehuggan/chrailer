@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import React, { useEffect, useState } from 'react';
 import { FETCH_BY_ID, FETCH_RECOMMENDATIONS } from '../../lib/API/request';
-import { IMovieResults, IMoviePage, IMovie } from '../../types/interface';
+import { IMoviePage, IMovie } from '../../types/interface';
 import Head from 'next/head';
 import Hero from '../../components/FilmPage/Hero';
 import VideoPlayer from '../../components/VideoPlayer';
@@ -34,6 +34,7 @@ const Film: React.FC<Props> = ({ filmData, recommended }) => {
       <Head>
         <title>{filmData.title}</title>
         <meta name="description" content={filmData.overview} />
+        <meta name="tags" content={filmData.original_title || filmData.title} />
       </Head>
       <Hero data={filmData} play={play} setPlay={setPlay} />
       <section className="w-11/12 sm:w-4/5  xl:w-2/3 mx-auto mt-4 ">

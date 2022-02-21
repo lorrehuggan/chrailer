@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FETCH_CATEGORIES, FETCH_GENRE } from '../../lib/API/request';
 import { IMovie } from '../../types/interface';
 import Head from 'next/head';
-import Hero from '../../components/Genre/Hero';
+import Hero from '../../components/GenrePage/Hero';
 import Cards from '../../components/Cards';
 
 interface Props {

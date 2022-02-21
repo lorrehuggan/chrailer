@@ -4,8 +4,6 @@ import { IMovieResults, IMovie } from '../../../types/interface';
 import Link from 'next/link';
 import Card from '../../Card';
 import useSWR, { SWRResponse } from 'swr';
-import Image from 'next/image';
-import { IMAGE_PATH } from '../../../lib/API';
 
 type Props = {
   genreID: string;
@@ -25,13 +23,12 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
   }, [data]);
 
   const results = data?.results;
-
   const placeholderArray = new Array(10).fill(0);
 
   return (
     <section className="relative w-11/12 md:w-4/5  xl:w-2/3 mx-auto mt-4">
       <div className="flex row justify-between items-center mb-4">
-        <h3 className="  uppercase text-2xl text-gray-700">
+        <h3 className="text-xl text-gray-700 underline-offset-4">
           {loading ? 'Loading' : name}
         </h3>
         <Link href={loading ? '' : `/genre/${genreID}`} passHref>
@@ -59,30 +56,12 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
         </div>
       )}
       {!loading && (
-        <>
-          {/* <div className="sm:hidden flex justify-between">
-            {results?.slice(0, 4).map((result) => {
-              return (
-                <div
-                  key={result.id}
-                  className="w-48 h-48 cursor-pointer bg-slate-500 relative mx-0.5 overflow-hidden rounded"
-                >
-                  <Image
-                    src={IMAGE_PATH + result?.poster_path}
-                    alt={result.title}
-                    layout="fill"
-                  />
-                </div>
-              );
+        <div className="flex overflow-x-auto snap-x space-x-2">
+          {results &&
+            results?.map((data: IMovie) => {
+              return <Card key={data.id} loading={loading} data={data} />;
             })}
-          </div> */}
-          <div className="flex overflow-x-auto snap-x space-x-2">
-            {results &&
-              results?.map((data: IMovie) => {
-                return <Card key={data.id} loading={loading} data={data} />;
-              })}
-          </div>
-        </>
+        </div>
       )}
     </section>
   );

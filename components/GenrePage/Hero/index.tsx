@@ -20,7 +20,7 @@ const Hero: React.FC<Props> = ({ data, name }) => {
           className="z-0 absolute inset-0 opacity-50 md:rounded-lg object-top blur-xl"
         />
         <div className="w-full h-full absolute left-0 top-0 bg-gradient-to-r from-black via-transparent to-transparent opacity-70 flex items-center justify-center">
-          <h1 className="z-90 text-4xl sm:text-7xl md:text-9xl font-extrabold text-white">
+          <h1 className="z-90 text-4xl sm:text-5xl lg:text-9xl font-extrabold text-white">
             {name}
           </h1>
         </div>

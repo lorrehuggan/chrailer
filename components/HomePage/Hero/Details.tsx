@@ -53,7 +53,7 @@ const Info: React.FC<Props> = ({ data, play, setPlay }) => {
         <Button margin="mr-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 mx-2"
+            className="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -62,7 +62,7 @@ const Info: React.FC<Props> = ({ data, play, setPlay }) => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
             />
           </svg>
         </Button>
@@ -95,13 +95,7 @@ const Info: React.FC<Props> = ({ data, play, setPlay }) => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
             />
           </svg>
         )}
@@ -112,7 +106,7 @@ const Info: React.FC<Props> = ({ data, play, setPlay }) => {
 
 const Poster: React.FC<Data> = ({ data }) => {
   return (
-    <div className="hidden sm:absolute sm:flex right-0 bottom-0 w-16 sm:w-20 sm:h-32 md:w-28 md:h-40 bg-gray-900 shadow-lg rounded-sm">
+    <div className="hidden sm:absolute sm:flex right-0 bottom-0 h-40 aspect-card lg:h-56 xl:h-72 bg-gray-900 shadow-lg rounded-lg overflow-hidden">
       <Image
         src={IMAGE_PATH + data?.poster_path}
         alt={data?.title}
