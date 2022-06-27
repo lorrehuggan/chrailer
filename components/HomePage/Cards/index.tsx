@@ -35,7 +35,7 @@ const Cards: React.FC<Props> = ({ genreID, name }) => {
       className="relative w-11/12 md:w-4/5 xl:w-2/3 mx-auto mt-4"
     >
       <div className="flex row justify-between items-center mb-4">
-        <h3 className="text-xl text-gray-700 underline-offset-4">
+        <h3 className="text-xl  text-neutral-50 underline-offset-4">
           {loading ? 'Loading' : name}
         </h3>
         <Link href={loading ? '' : `/genre/${genreID}`} passHref>

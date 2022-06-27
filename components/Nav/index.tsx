@@ -56,14 +56,14 @@ const Nav = (props: Props) => {
   return (
     <nav
       className={`${isSearching ? 'h-[27rem] lg:h-[30rem]' : 'h-20'} 
-      w-full sticky top-0 z-50 bg-white transition-all duration-200`}
+      w-full sticky top-0 z-50 bg-white transition-all duration-200 bg-neutral-900`}
     >
       <section
         className={`w-[95%] px-2  sm:px-0 md:w-4/5 xl:w-2/3 flex h-20 flex-row items-center justify-between mx-auto`}
       >
         <div>
           <Link href={`/`} passHref>
-            <h2 className="text-xl sm:text-3xl uppercase font-black text-blue-500 hover:text-blue-700 transition-colors duration-500 cursor-pointer">
+            <h2 className="text-xl sm:text-5xl uppercase font-black text-indigo-500 hover:text-indigo-700 transition-colors duration-500 cursor-pointer">
               chrailer
             </h2>
           </Link>

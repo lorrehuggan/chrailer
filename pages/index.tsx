@@ -10,6 +10,7 @@ import {
 } from '../lib/API/request';
 import { IGenre, IKeywords, IMovie } from '../types/interface';
 import HomeCards from '../components/Cards';
+
 interface Props {
   trending: IMovie[];
   upcoming: IMovie[];
