@@ -18,6 +18,7 @@ const Nav = (props: Props) => {
   const [loading, setLoading] = useState(true);
   const [{ query }, dispatch] = useSearchState();
   const [isSearching, setIsSearching] = useState(false);
+  const [yAxis, setYAxis] = useState(0);
 
   const { data, error }: SWRResponse<IMovieResults, any> = useSWR(
     FETCH_QUERY(1, query)
@@ -53,10 +54,27 @@ const Nav = (props: Props) => {
     setValue({ query: '' });
   };
 
+  const handleScroll = () => {
+    let scrollYPos = window.scrollY;
+    console.log(scrollYPos);
+    setYAxis(scrollYPos);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <nav
       className={`${isSearching ? 'h-[27rem] lg:h-[30rem]' : 'h-20'} 
-      w-full sticky top-0 z-50 bg-white/90 transition-all duration-200 `}
+      w-full sticky top-0 z-50 transition-all duration-200 ${
+        yAxis > 200
+          ? 'border-b-[1px] border-neutral-300 bg-white/90'
+          : 'bg-white'
+      } `}
     >
       <section
         className={`w-[95%] px-2  sm:px-0 md:w-4/5 xl:w-2/3 flex h-20 flex-row items-center justify-between mx-auto`}
