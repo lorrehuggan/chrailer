@@ -17,7 +17,7 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <link rel="icon" href="/favicon.ico" />
-        <body className=" bg-neutral-900 text-neutral-50">
+        <body className="bg-white">
           <Main />
           <NextScript />
         </body>

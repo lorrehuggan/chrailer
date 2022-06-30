@@ -43,9 +43,9 @@ const Info: React.FC<Props> = ({ data, play, setPlay }) => {
 
   return (
     <div className="absolute bottom-0 left-0">
-      <h3 className="text-2xl text-gray-50 font-bold">{`Rated ${
+      <h3 className="text-2xl text-gray-50 font-bold">{`Rated ${Math.floor(
         data?.vote_average * 10
-      }%`}</h3>
+      )}%`}</h3>
       <p className="w-full text-gray-50 text-xs sm:w-2/3 md:text-sm xl:text-base">
         {data?.overview}
       </p>

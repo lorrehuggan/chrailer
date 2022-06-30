@@ -28,9 +28,7 @@ const Hero: React.FC<Props> = ({ data }) => {
           objectFit="cover"
           className="z-0 absolute inset-0 opacity-50 md:rounded-lg object-top"
         />
-        <div className="w-full h-full absolute left-0 top-0 bg-gradient-to-r from-black via-transparent to-transparent opacity-70">
-          asd
-        </div>
+        <div className="w-full h-full absolute left-0 top-0 bg-gradient-to-r from-black via-transparent to-transparent opacity-70"></div>
         <Details
           data={data}
           setPlay={setPlayFeaturedFilm}
