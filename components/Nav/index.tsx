@@ -56,7 +56,7 @@ const Nav = (props: Props) => {
   return (
     <nav
       className={`${isSearching ? 'h-[27rem] lg:h-[30rem]' : 'h-20'} 
-      w-full sticky top-0 z-50 bg-white transition-all duration-200 bg-neutral-900`}
+      w-full sticky top-0 z-50 bg-white/90 transition-all duration-200 `}
     >
       <section
         className={`w-[95%] px-2  sm:px-0 md:w-4/5 xl:w-2/3 flex h-20 flex-row items-center justify-between mx-auto`}
